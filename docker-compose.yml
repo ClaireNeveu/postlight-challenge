@@ -1,4 +1,4 @@
-version: '3'
+version: '3.2'
 services:
   api:
     build: api
@@ -17,3 +17,7 @@ services:
     environment:
       - POSTGRES_PASSWORD=devpass
     restart: always
+    volumes:
+      - ./db_bootstrap.sql:/docker-entrypoint-initdb.d/db_bootstrap.sql
+    ports:
+      - "5432:5432" # Just for development
