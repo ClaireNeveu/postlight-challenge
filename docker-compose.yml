@@ -1,0 +1,19 @@
+version: '3'
+services:
+  api:
+    build: api
+    ports:
+      - "4010:4010"
+    depends_on:
+      - postgres
+  web:
+    build: web
+    ports:
+      - "4000:4000"
+    depends_on:
+      - api
+  postgres:
+    image: "postgres:12"
+    environment:
+      - POSTGRES_PASSWORD=devpass
+    restart: always

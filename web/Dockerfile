@@ -22,4 +22,4 @@ WORKDIR postlight-web/
 RUN npm install
 RUN npm run-script build
 
-CMD npx serve -s build
+CMD npx serve -l 4000 build
