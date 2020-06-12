@@ -14,10 +14,12 @@ RUN apt-get -y install python3 pipenv
 # Application building
 COPY Pipfile postlight-api/
 COPY Pipfile.lock postlight-api/
-COPY start.py postlight-api/
+COPY src postlight-api/src
 
 WORKDIR postlight-api/
 
+ENV PYTHONPATH postlight-api/src
+
 RUN pipenv sync --python /usr/bin/python3
 
-CMD python3 start.py
+CMD pipenv run python3 src/start.py

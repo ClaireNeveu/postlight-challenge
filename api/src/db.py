@@ -1,25 +1,26 @@
 from sqlalchemy import create_engine, Table, Column, Integer, String, MetaData, ForeignKey
+import cattr
 
 # TODO read from config
-db_engine = create_engine(
-    "postgresql+psycopg2://postgres:devpass@localhost/postlight",
+_engine = create_engine(
+    "postgresql+psycopg2://postgres:devpass@postgres/postlight",
     pool_size=5
 )
-pool = db_engine.connect()
+pool = _engine.connect()
 
-metadata = MetaData()
-department = Table('department', metadata,
+_metadata = MetaData()
+department = Table('department', _metadata,
     Column('id', Integer, primary_key=True, autoincrement=True),
     Column('name', String),
 )
 
-job = Table('job', metadata,
+job = Table('job', _metadata,
     Column('id', Integer, primary_key=True, autoincrement=True),
     Column('name', String),
     Column('description', String),
 )
 
-employee = Table('job', metadata,
+employee = Table('employee', _metadata,
     Column('id', Integer, primary_key=True, autoincrement=True),
     Column('name', String),
     Column('photo_id', Integer),
@@ -28,5 +29,12 @@ employee = Table('job', metadata,
     Column('location', String),
 )
 
-# Obviously not where we would be doing this in production
-metadata.create_all(engine)
+# TODO set up a relation between table and type to make deserialization automatic
+def execute(return_type, statement):
+    return (cattr.structure(r, return_type) for r in pool.execute(statement).fetchall())
+
+def executeOne(return_type, statement):
+    raw_response = pool.execute(statement).fetchone()
+    if raw_response is None:
+        return None
+    return cattr.structure(raw_response, return_type)

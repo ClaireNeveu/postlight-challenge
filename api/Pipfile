@@ -10,6 +10,7 @@ pyramid = "*"
 waitress = "*"
 sqlalchemy = "*"
 psycopg2-binary = "*"
+cattrs = "*"
 
 [requires]
-python_version = "3.7"
+python_version = "3.7.3"

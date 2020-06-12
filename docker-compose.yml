@@ -6,6 +6,8 @@ services:
       - "4010:4010"
     depends_on:
       - postgres
+    links:
+      - postgres
   web:
     build: web
     ports:

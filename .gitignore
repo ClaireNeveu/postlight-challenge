@@ -21,3 +21,5 @@ yarn-debug.log*
 yarn-error.log*
 
 current-hours-worked
+
+src/__pycache__/
