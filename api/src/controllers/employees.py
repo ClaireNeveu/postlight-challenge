@@ -12,8 +12,8 @@ from .util import json_endpoint
 
 @json_endpoint
 def get_employee(request: Request):
-    employee_id = request.params['id']
-    
+    employee_id = request.matchdict.get('id')
+
     employee = db.executeOne(Employee, select([db.employee]).where(db.employee.c.id == employee_id))
     if employee is None:
         raise EmployeeNotFound(employee_id)
@@ -34,7 +34,7 @@ def post_employee(request: Request):
 
 @json_endpoint
 def patch_employee(request: Request):
-    employee_id = request.params['id']
+    employee_id = request.matchdict['id']
     
     # Validate that our input is correct
     payload = cattr.structure(request.json_body, Envelope[Employee])

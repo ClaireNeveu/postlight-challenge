@@ -6,14 +6,14 @@ class EmployeePage extends React.Component<WithUrlParams<{ id: string }>, {}> {
 
     _dataFetch: any = null
 
-    state: { employees: Array<any> | null } = {
-        employees: null,
+    state: { employee: any | null } = {
+        employee: null,
     };
 
     // TODO Add centralized state management instead of per-component
     async _loadEmployee() {
         const employeeId = this.props.match.params.id;
-        const response = await fetch(`http://localhost:4010/employee/${employeeId}`);
+        const response = await fetch(`http://localhost:4010/employees/${employeeId}`);
         return response.json();
     }
 
@@ -31,7 +31,7 @@ class EmployeePage extends React.Component<WithUrlParams<{ id: string }>, {}> {
     }
 
     render() {
-        const employee: any | null = this.state.employees;
+        const employee: any | null = this.state.employee;
         if (employee === null) {
             return (
                 <div className="App">
