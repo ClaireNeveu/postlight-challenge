@@ -8,12 +8,12 @@ services:
       - postgres
     links:
       - postgres
-  web:
-    build: web
-    ports:
-      - "4000:4000"
-    depends_on:
-      - api
+#  web:
+#    build: web
+#    ports:
+#      - "4000:4000"
+#    depends_on:
+#      - api
   postgres:
     image: "postgres:12"
     environment:

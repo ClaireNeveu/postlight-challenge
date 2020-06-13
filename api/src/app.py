@@ -8,10 +8,10 @@ from controllers.employees import *
 def add_cors_callback(event):
     def cors_headers(request, response):
         response.headers.update({
-            'Access-Control-Allow-Origin': 'localhost:4000',
+            'Access-Control-Allow-Origin': '*',
             'Access-Control-Allow-Methods': 'POST,GET,DELETE,PUT,OPTIONS',
             'Access-Control-Allow-Headers': 'Origin, Content-Type, Accept, Authorization',
-            'Access-Control-Allow-Credentials': 'true'
+            'Access-Control-Allow-Credentials': 'false'
         })
     event.request.add_response_callback(cors_headers)
 
