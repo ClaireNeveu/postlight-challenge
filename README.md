@@ -13,5 +13,4 @@ Python has good support for asynchronous code with asyncio but in this required 
 
 ## Notes for self
 fix js dependencies
-docker-compose
 clean up unecessary create-react-app stuff if I have time
