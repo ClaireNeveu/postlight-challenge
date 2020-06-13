@@ -3,6 +3,7 @@ from app import run_app
 
 print('Setting up Database')
 
+db._metadata.drop_all(db._engine)
 db._metadata.create_all(db._engine)
 
 print('Importing test data')

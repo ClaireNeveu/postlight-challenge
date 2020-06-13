@@ -4,6 +4,8 @@ import './App.css';
 
 class App extends React.Component {
 
+    _dataFetch: any = null
+
     state = {
         employees: null,
     };
@@ -15,10 +17,16 @@ class App extends React.Component {
     }
 
     componentWillMount() {
-        this._dataFetch = loadEmployees().then(employees => {
+        this._dataFetch = this._loadEmployees().then(employees => {
             this._dataFetch = null;
             this.setState({employees});
         });
+    }
+
+    componentWillUnmount() {
+        if (this._dataFetch) {
+            this._dataFetch.cancel();
+        }
     }
 
     render() {
